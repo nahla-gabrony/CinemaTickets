@@ -86,7 +86,7 @@
   
   <h3>Admin Slide Pages</h3>
   <p> - Slide: can Create/Update/Delete </p>
-  <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Theater_Index.png" />
+  <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Slide.gif" />
   
   <h3>Access Denied/Not Found Pages</h3>
   <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Authorization_Page.png" />
