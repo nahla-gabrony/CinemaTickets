@@ -1,0 +1,58 @@
+﻿@model RoleViewModel
+@section CssFile {
+    <link href="~/css/admin.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Details";
+}
+
+<section class="section form-section admin-details-section">
+    <h2 id="section-header" class="section-title position-relative text-center my-1">Details</h2>
+    <div class="container">
+
+        <form>
+            <div class="card-front my-5 m-auto p-3">
+                <div class="row">
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label asp-for="Id"></label>
+                        <input asp-for="Id" type="text" class="input-field" readonly>
+                        <i class="far fa-id-badge details-icon"></i>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label asp-for="RoleName"></label>
+                        <input asp-for="RoleName" type="text" class="input-field" readonly>
+                        <i class="far fa-user-tag details-icon"></i>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <div class="card text-white bg-card mb-3">
+                            <h5 class="card-header">User In Role</h5>
+                            <div class="card-body">
+                                @if (Model.Users.Any())
+                                {
+                                    @foreach (var user in Model.Users)
+                                    {
+                                        <p class="card-text">@user</p>
+                                    }
+                                }
+                                else
+                                {
+                                    <p class="card-text">There are no user created yet</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 form-group my-4 d-flex flex-column flex-sm-row justify-content-around">
+                        <a asp-area="Admin" asp-controller="Roles" asp-action="Edit" asp-route-roleId="@Model.Id" class=" btn btn-success fs-5 px-5 py-2 mb-3 mb-sm-0">Edit</a>
+                        <a asp-area="Admin" asp-controller="Roles" asp-action="Index" class="btn btn-danger fs-5 px-5 py-2">Back</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+@section AdminJs {
+    <script src="~/js/admin.js"></script>
+}

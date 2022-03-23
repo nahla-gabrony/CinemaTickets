@@ -1,0 +1,77 @@
+﻿@model SlideCreateViewModel
+@section CssFile {
+    <link href="~/css/admin.min.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Create Slide";
+}
+
+<section class="section create-section form-section">
+    <h2 id="section-header" class="section-title position-relative text-center my-1">Create</h2>
+    <div class="container">
+        @if (Model?.IsSuccess == true)
+        {
+            <div class="alert alert-success alert-dismissible fade show m-auto my-5 alert-create d-flex align-items-center" role="alert">
+                <i class="far fa-info-circle fs-4 pe-2"></i>
+                <div>
+                    <span><strong>Congratulations</strong> You Add new Slide successfully, </span>
+                    <span>Click Here to</span>
+                    <a asp-area="Admin" asp-controller="Slides" asp-action="Index" class="alert-link"><strong>Back to Slide Page</strong></a>.
+                </div>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <form id="form" method="post" enctype="multipart/form-data" asp-action="Create">
+
+            <div class="card-front my-5 m-auto p-3">
+                <div class="row">
+                    <div class="img-preview d-flex justify-content-center mb-2 overflow-hidden">
+                        <img id="form-image" src="" />
+                    </div>
+                    <div class="col-12 form-group position-relative mb-3">
+                        <input asp-for="CoverPhoto" id="image-url" class="input-field">
+                        <label for="image-url" class="btn-main px-3">Choose a Cover Image</label>
+                        <span asp-validation-for="CoverPhoto" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <input id="name" asp-for="SlideTitle" type="text" class="input-field" placeholder="Slide Title">
+                        <i class="fas fa-file-signature input-icon"></i>
+                        <span asp-validation-for="SlideTitle" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12 form-group position-relative mt-4">
+                        <select asp-for="MovieId" asp-items="@(new SelectList(@ViewBag.Movies, "Id", "MovieName"))" id="movie-list">
+                            <option value=""></option>
+                        </select>
+                        <i class="fas fa-film input-icon"></i>
+                        <span asp-validation-for="MovieId" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12 form-group position-relative mt-4">
+                        <input asp-for="SlideDetails" type="text" class="input-field" placeholder="Slide Details">
+                        <i class="fas fa-info input-icon"></i>
+                        <span asp-validation-for="SlideDetails" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label>
+                            <input asp-for="IsActive" type="checkbox" checked="checked"> Active
+                        </label>
+                    </div>
+                    <div asp-validation-summary="ModelOnly" class="input-validation"> </div>
+
+                    <div class="col-12 form-group my-4 d-flex flex-column flex-sm-row justify-content-around">
+                        <input type="submit" value="Create" class=" btn btn-success fs-5 px-5 py-2 mb-3 mb-sm-0">
+                        <a asp-area="Admin" asp-action="Index" class=" btn btn-danger fs-5 px-5 py-2">Back</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+@section AdminJs {
+    <script src="~/js/bundle.js"></script>
+}

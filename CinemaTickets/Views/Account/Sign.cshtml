@@ -1,0 +1,128 @@
+﻿@model SignInorSignUpViewModel
+@section CssFile {
+    <link href="~/css/main.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Sign";
+    var returnUrl = Context.Request.Query["ReturnUrl"];
+}
+
+<section class="section form-section position-relative ">
+    <div class="container">
+        <div class="row justify-content-center ">
+
+            <div class="col-12 text-center align-self-center py-5">
+                <div class="pb-5 pt-5 pt-sm-2">
+
+                    <h6 class="mb-0 pb-3 fw-bold fs-5 sign-header text-uppercase">
+                        <span>Sign In </span>
+                        <span>Sign Up</span>
+                    </h6>
+
+                    <input asp-for="SignUpCheck" class="checkbox" id="Checked" />
+                    <label class="switch-icon position-relative mt-2" for="Checked"></label>
+                    <div class="card-3d-wrap position-relative mx-auto">
+                        <div class="card-3d-wrapper position-absolute top-0 start-0 ">
+
+                            <!-- ----------------Sign IN-------------------- -->
+                            <div class="card-front position-absolute top-0 start-0 overflow-hidden">
+                                <div class="text-center">
+                                    <h4 class="my-5 pb-3 content-title">Sign In</h4>
+                                    @if (Model.ExternalLogin != null)
+                                    {
+                                        <form method="post" asp-action="ExternalSignIn" asp-route-returnUrl="@Model.ReturnUrl" class="center-wrap position-absolute start-0">
+                                            <div class="col-12 form-group my-4">
+                                                @foreach (var provider in Model.ExternalLogin)
+                                                {
+                                                    <button type="submit" name="provider" value="@provider.Name" class="btn btn-main mb-2 fs-5 w-100">Use @provider.DisplayName account</button>
+                                                }
+                                            </div>
+                                        </form>
+                                    }
+                                    
+                                <form asp-action="SignIn" asp-route-returnUrl="@returnUrl" class="sign-in center-wrap position-absolute start-0">
+                                    <h4 class="mt-5 content-title">OR</h4>
+                                    <div class="form-group position-relative mt-4">
+                                        <input asp-for="SignIn.Email" class="input-field" placeholder="Email Address">
+                                        <i class="far fa-user input-icon"></i>
+                                        <span asp-validation-for="SignIn.Email" class="input-validation"></span>
+                                    </div>
+                                    <div class="form-group position-relative mt-4">
+                                        <input asp-for="SignIn.Password" class="input-field" placeholder="Password">
+                                        <i class="far fa-unlock-alt input-icon"></i>
+                                        <span asp-validation-for="SignIn.Password" class="input-validation"></span>
+                                    </div>
+                                    <div class="form-group position-relative mt-4 text-start">
+                                        <input asp-for="SignIn.RemberMe" class="form-check-input" value="" id="RemberMe">
+                                        <label class="form-check-label" for="RemberMe"> Rember Me </label>
+                                    </div>
+
+                                    <div class="input-validation">
+                                        @ViewBag.SignInSummary
+                                    </div>
+                                    <p class="text-center">
+                                        <a asp-controller="Account" asp-action="ForgotPassword" class="link">Forgot your password?</a>
+                                    </p>
+
+                                    <div class="col-12 my-1 ">
+                                        <button type="submit" value="Login" class="btn btn-main fs-5 w-100">Login</button>
+                                    </div>
+                                </form>
+                                </div>
+
+                             
+
+                            </div>
+                            <!-- ----------------Sign Up-------------------- -->
+
+                            <form asp-action="SignUp" class="card-back position-absolute top-0 start-0 overflow-hidden">
+                                <div class="center-wrap position-absolute top-50 start-0">
+
+                                    <h4 class="mb-4 pb-3 content-title">Sign Up</h4>
+                                    <div class="row">
+                                        <div class="col-12 col-md-6 form-group position-relative mt-4">
+                                            <input asp-for="SignUp.FirstName" class="input-field" placeholder="First Name">
+                                            <i class="far fa-user ms-3 input-icon"></i>
+                                            <span asp-validation-for="SignUp.FirstName" class="input-validation"></span>
+                                        </div>
+                                        <div class="col-12 col-md-6 form-group position-relative mt-4">
+                                            <input asp-for="SignUp.LastName" class="input-field" placeholder="Last Name">
+                                            <i class="far fa-user ms-3 input-icon"></i>
+                                            <span asp-validation-for="SignUp.LastName" class="input-validation"></span>
+                                        </div>
+                                        <div class="col-12  form-group position-relative mt-4">
+                                            <input asp-for="SignUp.Email" class="input-field" placeholder="Email Address">
+                                            <i class="far fa-envelope ms-3 input-icon"></i>
+                                            <span asp-validation-for="SignUp.Email" class="input-validation"></span>
+                                        </div>
+                                        <div class="col-12  form-group position-relative mt-4">
+                                            <input asp-for="SignUp.Password" class="input-field" placeholder="Password" autocomplete="off">
+                                            <i class="far fa-unlock-alt ms-3 input-icon"></i>
+                                            <span asp-validation-for="SignUp.Password" class="input-validation"></span>
+                                        </div>
+                                        <div class="col-12  form-group position-relative mt-4">
+                                            <input asp-for="SignUp.ConfirmPassword" class="input-field" placeholder="Please Confirm" autocomplete="off">
+                                            <i class="far fa-unlock-alt ms-3 input-icon"></i>
+                                            <span asp-validation-for="SignUp.ConfirmPassword" class="input-validation"></span>
+                                        </div>
+
+                                        <div asp-validation-summary="ModelOnly" class="input-validation"> </div>
+
+                                        <div class="col-12 form-group my-4">
+                                            <input type="submit" value="Register" class="btn btn-main mt-3 fs-5 w-100">
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

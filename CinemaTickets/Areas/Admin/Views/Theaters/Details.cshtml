@@ -1,0 +1,47 @@
+﻿@model TheaterEditViewModel
+@section CssFile {
+    <link href="~/css/admin.min.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Theater Details";
+}
+
+<section class="section create-section form-section">
+    <h2 id="section-header" class="section-title position-relative text-center my-1">Details</h2>
+    <div class="container">
+
+        <form>
+            <div class="card-front my-5 m-auto p-3">
+                <div class="row">
+                    <div class="img-details d-flex justify-content-center mb-2 overflow-hidden">
+                        <img id="form-image" src="~/@Model.ExistPhoto" />
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label asp-for="TheaterName"></label>
+                        <input asp-for="TheaterName" type="text" class="input-field" readonly>
+                        <i class="fas fa-film details-icon"></i>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label asp-for="TheaterDetails"></label>
+                        <input asp-for="TheaterDetails" type="text" class="input-field" readonly>
+                        <i class="fas fa-info details-icon"></i>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label asp-for="TheaterLocation"></label>
+                        <input asp-for="TheaterLocation" type="text" class="input-field" readonly>
+                        <i class="far fa-map-marked-alt details-icon"></i>
+                    </div>
+
+
+
+                    <div class="col-12 form-group my-4 d-flex flex-column flex-sm-row justify-content-around">
+                        <a asp-action="Edit" asp-route-id="@Model.TheaterId" class=" btn btn-success fs-5 px-5 py-2 mb-3 mb-sm-0">Edit</a>
+                        <a asp-action="Index" class="btn btn-danger fs-5 px-5 py-2">Back</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>

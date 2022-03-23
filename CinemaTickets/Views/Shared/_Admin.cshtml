@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService _authorizationService
+
+@if ((await _authorizationService.AuthorizeAsync(User, "AdvertisingManage")).Succeeded)
+{
+<ul class="navbar-nav">
+    <li class="nav-item dropdown me-2">
+        <a class="nav-link dropdown-toggle fw-bold" href="#" id="admin-navbar" data-bs-toggle="dropdown">
+            Admin
+        </a>
+        <ul id="dropdown-menu" class="dropdown-menu" aria-labelledby="admin-navbar">
+            @if ((await _authorizationService.AuthorizeAsync(User, "AdminManage")).Succeeded)
+            {
+                <li><a class="dropdown-item" asp-area="admin" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+                <li><a class="dropdown-item"asp-area="admin" asp-controller="Theaters" asp-action="Index">Theaters</a></li>
+                <li><a class="dropdown-item"asp-area="admin" asp-controller="Screens" asp-action="Index">Screen</a></li>
+                <li><a class="dropdown-item"asp-area="admin" asp-controller="Shows" asp-action="Index">Show</a></li>
+                <li><a class="dropdown-item" asp-area="admin" asp-controller="Movies" asp-action="Index">Movies</a></li>
+                <li><a class="dropdown-item" asp-area="admin" asp-controller="Crew" asp-action="Index">Crew</a></li>
+                <li><a class="dropdown-item" asp-area="admin" asp-controller="Languages" asp-action="Index">Languages</a></li>
+                <li><a class="dropdown-item" asp-area="admin" asp-controller="Genres" asp-action="Index">Genres</a></li>
+                <li><a class="dropdown-item" asp-area="admin" asp-controller="Countries" asp-action="Index">Countries</a></li>
+
+            }
+            <li><a class="dropdown-item" asp-area="admin" asp-controller="Slides" asp-action="Index">Slides</a></li>
+        </ul>
+    </li>
+</ul>
+}

@@ -1,0 +1,120 @@
+﻿@model UserViewModel
+@section CssFile {
+    <link href="~/css/admin.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<section class="section form-section admin-details-section">
+    <h2 id="section-header" class="section-title position-relative text-center my-1">Edit</h2>
+    <div class="container">
+        @if (ViewBag.EditUserRoleSuccess == true)
+        {
+            <div class="toast position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-black">
+                    <strong class="me-auto text-success">Manage User Roles</strong>
+                    <small>Just Now</small>
+                    <button type="button" class="btn" data-bs-dismiss="toast" aria-label="Close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="toast-body bg-light text-black">
+                    <strong>Congratulations</strong> You Update the User in Role Successfully.
+                </div>
+            </div>
+        }
+
+        @if (ViewBag.EditUserClaimSuccess == true)
+        {
+            <div class="toast position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-black">
+                    <strong class="me-auto text-success">Manage User Claims</strong>
+                    <small>Just Now</small>
+                    <button type="button" class="btn" data-bs-dismiss="toast" aria-label="Close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="toast-body bg-light text-black">
+                    <strong>Congratulations</strong> You Update the User in Claims Successfully.
+                </div>
+            </div>
+        }
+
+        <form method="post">
+            <div class="card-front my-5 m-auto p-3">
+                <div class="row">
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label asp-for="UserId"></label>
+                        <input asp-for="UserId" type="text" class="input-field" readonly>
+                        <i class="far fa-id-badge details-icon"></i>
+                    </div>
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" type="text" class="input-field">
+                        <i class="far fa-user-tag details-icon"></i>
+                    </div>
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <label asp-for="LastName"></label>
+                        <input asp-for="LastName" type="text" class="input-field">
+                        <i class="far fa-user-tag details-icon"></i>
+                    </div>
+
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" type="text" class="input-field">
+                        <i class="far fa-user-tag details-icon"></i>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <div class="card text-white bg-card mb-3">
+                            <h5 class="card-header">User Roles</h5>
+                            <div class="card-body">
+                                @if (Model.Roles.Any())
+                                {
+                                    @foreach (var role in Model.Roles)
+                                    {
+                                        <p class="card-text">@role</p>
+                                    }
+                                }
+                                else
+                                {
+                                    <p class="card-text">There are no roles for this user created yet</p>
+                                }
+                            </div>
+                            <div class="card-footer text-muted ">
+                                <a asp-area="Admin" asp-controller="Users" asp-action="ManageUserRole" asp-route-userId="@Model.UserId" class="btn btn-success fs-5 px-5 py-2">Mange Roles</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <div class="card text-white bg-card mb-3">
+                            <h5 class="card-header">User Roles</h5>
+                            <div class="card-body">
+                                @if (Model.Claims.Any())
+                                {
+                                    @foreach (var claim in Model.Claims)
+                                    {
+                                        <p class="card-text">@claim</p>
+                                    }
+                                }
+                                else
+                                {
+                                    <p class="card-text">There are no claims for this user created yet</p>
+                                }
+                            </div>
+                            <div class="card-footer text-muted ">
+                                <a asp-area="Admin" asp-controller="Users" asp-action="ManageUserClaim" asp-route-userId="@Model.UserId" class="btn btn-success fs-5 px-5 py-2">Mange Claims</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div asp-validation-summary="ModelOnly" class="input-validation"> </div>
+                    <div class="col-12 form-group my-4 d-flex flex-column flex-sm-row justify-content-around">
+                        <input type="submit" value="Update" class=" btn btn-success fs-5 px-5 py-2 mb-3 mb-sm-0">
+                        <a asp-area="Admin" asp-controller="Users" asp-action="Index" class="btn btn-danger fs-5 px-5 py-2">Back</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+@section AdminJs {
+    <script src="~/js/admin.js"></script>
+}

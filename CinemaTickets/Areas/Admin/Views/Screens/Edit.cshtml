@@ -1,0 +1,48 @@
+﻿@model Screen
+@section CssFile {
+    <link href="~/css/admin.min.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Edit Screen";
+}
+
+<section class="section create-section form-section screen-form">
+    <h2 id="section-header" class="section-title position-relative text-center my-1">Edit</h2>
+    <div class="container">
+
+        <form id="form" method="post" asp-action="Edit">
+
+            <div class="card-front my-5 m-auto p-3">
+                <div class="row">
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label asp-for="ScreenName"></label>
+                        <input id="name" asp-for="ScreenName" type="text" class="input-field">
+                        <i class="far fa-desktop details-icon"></i>
+                        <span asp-validation-for="ScreenName" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12  form-group position-relative mt-4">
+                        <label asp-for="TheaterId"></label>
+                        <select asp-for="TheaterId" asp-items="@(new SelectList(@ViewBag.Theaters, "Id", "TheaterName"))" id="theater-list">
+                        </select>
+                        <i class="fas fa-film details-icon"></i>
+                        <span asp-validation-for="TheaterId" class="input-validation"></span>
+                    </div>
+
+
+                    <div asp-validation-summary="ModelOnly" class="input-validation"> </div>
+
+                    <div class="col-12 form-group my-4 d-flex flex-column flex-sm-row justify-content-around">
+                        <input type="submit" value="Update" class=" btn btn-success fs-5 px-5 py-2 mb-3 mb-sm-0">
+                        <a asp-area="Admin" asp-action="Index" class=" btn btn-danger fs-5 px-5 py-2">Back</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+@section AdminJs {
+    <script src="~/js/multiSelect.js"></script>
+}

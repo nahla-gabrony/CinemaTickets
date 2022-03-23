@@ -1,0 +1,203 @@
+﻿@model MovieEditViewModel
+@{
+    ViewData["Title"] = @Model.MovieName;
+}
+<section class="section  details-section mb-5">
+    <div class="container">
+        <div class="section-content">
+            <div class="section-header d-flex align-items-center ">
+                <div class="icon-wrapper">
+                    <i class="far fa-video text-white"></i>
+                </div>
+                <div id="section-header" class="content-MovieName text-white fs-3 fw-bold"> @Model.MovieName</div>
+            </div>
+            <div class="section-body">
+                <div class="row g-4 p-3">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card card-color position-relative">
+
+                            <div class="ribbon-wrapper position-absolute overflow-hidden">
+                                @if (Model.Shows.Any(x => x.ShowStartDate < DateTime.Today && x.ShowEndDate > DateTime.Today))
+                                {
+                                    <div class="ribbon text-center position-relative bg-main text-white fw-bold">NOW</div>
+                                }
+                                @if (Model.Shows.Any(x => x.ShowStartDate > DateTime.Today))
+                                {
+                                    <div class="ribbon text-center position-relative bg-success text-white fw-bold">Soon</div>
+                                }
+                            </div>
+
+                            <div class="card-header">
+                                <img src="~/@Model.ExistPhoto" class="card-img-top card-img" asp-append-version="true">
+                            </div>
+                        </div>
+
+                        @if (Model.Shows.Any(x => x.ShowStartDate < DateTime.Today && x.ShowEndDate > DateTime.Today))
+                        {
+                            <a asp-controller="Booking" asp-action="BookingDetails" asp-route-id="@Model.MovieId" class="btn btn-main fw-bold fs-5 p-2 mt-4 d-block">
+                                <span class="ps-2"> Book Tickets</span>
+                                <i class="far fa-ticket-alt p-2  ticket-icon"></i>
+                            </a>
+                        }
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-7">
+                        <div class="position-relative">
+                            <div class="mb-3 movie-details">
+                                <strong class="main-color fs-5">Movie Details : </strong>
+                                <span> @Model.CountryName / @Model.LanguageName</span>
+                                <span class="fs-1"> . </span>
+                                <span>   @Model.MovieRunningTime</span>
+                                <span class="fs-1"> . </span>
+                                <span> In Theaters @Model.MovieReleaseDate.ToString("dd/MM/yyyy")</span>
+                            </div>
+                            <p>
+                                @Model.MovieDescription
+                            </p>
+                            @{
+                                var directors = Model.ExistCrew.Where(x => x.Crew.CrewRoleId == 3).Select(x => x.Crew).ToList();
+                                var writers = Model.ExistCrew.Where(x => x.Crew.CrewRoleId == 2).Select(x => x.Crew).ToList();
+                                var actors = Model.ExistCrew.Where(x => x.Crew.CrewRoleId == 1).Select(x => x.Crew).ToList();
+                            }
+
+                            <p class="@(directors.Count == 0 ? "d-none" : "d-block")"><strong>Directer: </strong>
+                                @for (int i = 0; i < directors.Count; i++)
+                                {
+                                    <a class="d-inline-block crew-details" asp-controller="Crew" asp-action="Details" asp-route-id="@directors[i].Id">@directors[i].CrewName  </a>
+                                }
+                            </p>
+                            <p class="@(writers.Count == 0 ? "d-none" : "d-block")"><strong>Writer: </strong>
+                                @for (int i = 0; i < writers.Count; i++)
+                                {
+                                    <a class="d-inline-block crew-details" asp-controller="Crew" asp-action="Details" asp-route-id="@writers[i].Id">@writers[i].CrewName  </a>
+                                }
+                            </p>
+                            <p class="@(actors.Count == 0 ? "d-none" : "d-block")">
+                                <strong>Actors: </strong>
+                                @for (int i = 0; i < actors.Count; i++)
+                                {
+                                    <a class="d-inline-block crew-details" asp-controller="Crew" asp-action="Details" asp-route-id="@actors[i].Id">@actors[i].CrewName  </a>
+                                }
+                            </p>
+                            <p class="@(Model.MovieRate == null ? "d-none" : "d-block")"> <strong>Rated: </strong>@Model.MovieRate</p>
+                            <p class="@(Model.GenresName == null ? "d-none" : "d-block")"><strong>Genre: </strong>@Model.GenresName</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- cast & Crow Section -->
+<section class="section  details-section mb-5 @(Model.ExistCrew.Count() == 0 ? "d-none" : "d-block")">
+    <div class="container">
+        <div class="row">
+            <h4 class="mb-4">Cast and Crew </h4>
+            <div class="col-sm-12">
+                <div id="castCarousel" class="carousel slide" data-bs-ride="carousel" data-interval="0">
+                    <!-- Wrapper for carousel items -->
+                    <div class="carousel-inner">
+                        @{
+                            int CrewLength = Model.ExistCrew.Count();
+                            int CrewItration = (int)Math.Ceiling(CrewLength / 4.0);
+                            int CrewNum = 0;
+                            int CrewCounter = 0;
+                        }
+                        @for (int i = 1; i <= CrewItration; i++)
+                        {
+                            CrewCounter = (CrewItration == 1 ? CrewLength : i < CrewItration ? 4 : (CrewLength % 4) == 0 ? 4 : (CrewLength % 4));
+                            <div class="@(i==1 ? "carousel-item active" : "carousel-item")">
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                                    @for (int j = 0; j < CrewCounter; j++)
+                                    {
+                                        <div class="col">
+                                            <div class="thumb-wrapper">
+                                                <div class="img-box">
+                                                    <a asp-controller="Crew" asp-action="Details" asp-route-id="@Model.ExistCrew[CrewNum].Crew.Id">
+                                                        <img src="/@Model.ExistCrew[CrewNum].Crew.CrewImageURL" asp-append-version="true">
+                                                        <div class="carousel-title">@Model.ExistCrew[CrewNum].Crew.CrewName</div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        CrewNum = CrewNum + 1;
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <!-- Carousel controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#castCarousel"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#castCarousel"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Movie Photo Section -->
+<section class="section  details-section mb-5" @(Model.ExistMovieGallery.Count() == 0 ? "d-none" : "d-block")">
+    <div class="container">
+        <h4 class="mb-4">Movie Photos</h4>
+        <div id="movieCarousel" class="carousel slide" data-bs-ride="carousel" data-interval="0">
+            <!-- Wrapper for carousel items -->
+            <div class="carousel-inner ">
+                @{
+                    int GalleryLength = Model.ExistMovieGallery.Count();
+                    int GalleryItration = (int)Math.Ceiling(GalleryLength / 4.0);
+                    int GalleryNum = 0;
+                    int GalleryCounter = 0;
+                }
+                @for (int i = 1; i <= GalleryItration; i++)
+                {
+                    GalleryCounter = (GalleryItration == 1 ? GalleryLength : i < GalleryItration ? 4 : (GalleryLength % 4) == 0 ? 4 : (GalleryLength % 4));
+                    <div class="@(i==1 ? "carousel-item active" : "carousel-item")">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                            @for (int j = 0; j < GalleryCounter; j++)
+                            {
+                                <div class="col">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="/@Model.ExistMovieGallery[GalleryNum++].ImageURL" asp-append-version="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- Carousel controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+    </div>
+</section>
+
+<!-- Related Movies Section -->
+<section class="section  details-section mb-5">
+    <div class="container">
+        <h4 class="mb-4">More like this</h4>
+        @await Component.InvokeAsync("RelatedMovies", new
+           {
+               movieId = Model.MovieId
+           })
+    </div>
+</section>

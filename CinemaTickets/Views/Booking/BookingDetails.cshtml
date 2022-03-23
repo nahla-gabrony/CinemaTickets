@@ -1,0 +1,138 @@
+﻿@model BookingDetailsViewModel
+@{
+    ViewData["Title"] = "Booking";
+}
+<section class="section details-section mb-5">
+    <div class="container">
+        <div class="section-content">
+            <div class="section-header d-flex align-items-center ">
+                <div class="icon-wrapper">
+                    <i class="far fa-video text-white"></i>
+                </div>
+                <div class="content-MovieName text-white fs-3 fw-bold"> @Model.MovieName</div>
+            </div>
+            <form class="section-body" method="post">
+                <input asp-for="MovieName" hidden />
+                <input asp-for="MovieId" hidden />
+                <div class="row g-4 p-3">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card card-color position-relative">
+                            <div class="card-header">
+                                <img src="~/@Model.ExistPhoto" class="card-img-top card-img">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-7">
+                        <div class="d-flex align-items-center select-container">
+                            <i class="far fa-map-marker-alt me-2 fs-4 pt-1 badge-icon"></i>
+                            <select id="TheaterId" class="form-select" asp-for="TheaterId" asp-items="@(new SelectList(@ViewBag.Theaters, "Id", "TheaterName"))">
+                                <option selected disabled> Choose Cinema</option>
+                            </select>
+                            <span asp-validation-for="TheaterId" class="input-validation"></span>
+                        </div>
+
+                        <div class="d-flex align-items-center select-container">
+                            <i class="far fa-calendar-alt me-2 fs-4 pt-1 badge-icon"></i>
+                            <select id="DateId" class="form-select" asp-for="ShowDate">
+                                <option selected disabled> Choose Show Date</option>
+                            </select>
+                        </div>
+                        <div class="d-flex align-items-center select-container">
+                            <i class="far far fa-clock me-2 fs-4 pt-1 badge-icon"></i>
+                            <select id="ShowTimeId" class="form-select" asp-for="ShowTime">
+                                <option selected disabled> Choose Show Time</option>
+                            </select>
+                        </div>
+                        <div class="d-flex align-items-center select-container">
+                            <i class="far fa-desktop  me-2 fs-4 pt-1 badge-icon"></i>
+                            <select id="ScreenId" class="form-select" asp-for="ScreenId">
+                                <option selected disabled> Choose Screen</option>
+                            </select>
+                            <span asp-validation-for="ScreenId" class="input-validation"></span>
+                        </div>
+
+
+
+                        <div class="d-flex justify-content-end">
+                            <input type="submit" value="Next" class="btn btn-main fw-bold fs-5 p-2 ">
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+@section JsonJs {
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            var locationDate = $('#DateId');
+            $("#TheaterId").change(function () {
+                $.getJSON({
+                    url: '@Url.Action("GetDate", "Booking")',
+                    type: 'Get',
+                    data: {
+                        movieId: @Model.MovieId,
+                    },
+                    success: function (response) {
+                        locationDate.empty();
+                        $.each(response,
+                            function (index, item) {
+                                locationDate.append($('<option></option>').text(item.text).val(item.value));
+                            });
+                    }
+                })
+            });
+
+
+            var locationShowTime = $('#ShowTimeId');
+            $("#DateId").change(function () {
+                $.getJSON({
+                    url: '@Url.Action("GetTime", "Booking")',
+                    type: 'Get',
+                    data: {
+                        dateTime: $('#DateId').val(),
+                        movieId: @Model.MovieId,
+                        theaterId: $('#TheaterId').val(),
+                    },
+                    success: function (response) {
+                        locationShowTime.empty();
+                        $.each(response,
+                            function (index, item) {
+                                locationShowTime.append($('<option></option>').text(item.text).val(item.value));
+                            });
+                    }
+                })
+            });
+
+            var locationScreen = $('#ScreenId');
+            $("#ShowTimeId").change(function () {
+                $.getJSON({
+                    url: '@Url.Action("GetScreenByTheaterId", "Booking")',
+                    type: 'Get',
+                    data: {
+                        theaterId: $('#TheaterId').val(),
+                        dateTime: $('#ShowTimeId').val(),
+                        movieId: @Model.MovieId,
+                    },
+                    success: function (response) {
+                        locationScreen.empty();
+                        $.each(response,
+                            function (index, item) {
+                                locationScreen.append($('<option></option>').text(item.text).val(item.value));
+                            });
+                    }
+                })
+            });
+
+
+
+
+        });
+</script>
+}

@@ -1,0 +1,222 @@
+﻿@model dynamic
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService _authorizationService
+@section CssFile {
+    <link href="~/css/admin.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "DashBoard";
+}
+
+<section class="section mb-5">
+
+    <div class="container">
+
+        <div id="section-header" class="row"></div>
+        <div class="row">
+            @if ((await _authorizationService.AuthorizeAsync(User, "SuperManager")).Succeeded)
+            {
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card-content card-content-c1">
+                        <div class="d-flex justify-content-around">
+                            <div class="icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="text fw-bold align-self-center">
+                                <span>Users</span>
+                                <h2>@Model.UsersNumber</h2>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <a class="btn btn-transparent" asp-area="admin" asp-controller="Users" asp-action="Index">More Info</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card-content card-content-c2">
+                        <div class="d-flex justify-content-around">
+                            <div class="icon">
+                                <i class="fas fa-user-tag"></i>
+                            </div>
+                            <div class="text fw-bold align-self-center">
+                                <span>Roles</span>
+                                <h2>@Model.RolesNumber</h2>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <a class="btn btn-transparent" asp-area="admin" asp-controller="Roles" asp-action="Index">More Info</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-sm-6 col-lg-3">
+                <div class="card-content card-content-c3">
+                    <div class="d-flex justify-content-around">
+                        <div class="icon">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <div class="text fw-bold align-self-center">
+                            <span>Cinemas</span>
+                            <h2>@Model.TheatersNumber</h2>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a class="btn btn-transparent" asp-area="admin" asp-controller="Theaters" asp-action="Index">More Info</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card-content card-content-c4">
+                    <div class="d-flex justify-content-around">
+                        <div class="icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <div class="text fw-bold align-self-center">
+                            <span>Current Films</span>
+                            <h2>@Model.CurrentMoviesNumber</h2>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a class="btn btn-transparent" asp-area="admin" asp-controller="Movies" asp-action="Index">More Info</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card-content card-content-c5">
+
+                    <div class="d-flex justify-content-around">
+                        <div class="icon">
+                            <i class="fas fa-film ticket-icon "></i>
+                        </div>
+                        <div class="text fw-bold align-self-center">
+                            <span>Coming Films</span>
+                            <h2>@Model.ComingtMoviesNumber</h2>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a class="btn btn-transparent" asp-area="admin" asp-controller="Movies" asp-action="Index">More Info</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card-content card-content-c6">
+
+                    <div class="d-flex justify-content-around">
+                        <div class="icon">
+                            <i class="fas fa-ticket-alt "></i>
+                        </div>
+                        <div class="text fw-bold align-self-center">
+                            <span>Daily Tickets</span>
+                            <h2>@Model.TodaySolidTickets</h2>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="#theater-table" class="btn btn-transparent">More Info</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card-content card-content-c7">
+
+                    <div class="d-flex justify-content-around">
+                        <div class="icon">
+                            <i class="fas fa-calendar-day "></i>
+                        </div>
+                        <div class="text fw-bold align-self-center">
+                            <span>Daily Profit</span>
+                            <h2>@Model.TodayTicketsProfit</h2>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="#theater-table" class="btn btn-transparent">More Info</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card-content card-content-c8">
+
+                    <div class="d-flex justify-content-around">
+                        <div class="icon">
+                            <i class="fas fa-calendar-week"></i>
+                        </div>
+                        <div class="text fw-bold align-self-center">
+                            <span>Monthly Profit</span>
+                            <h2>@Model.TicketsProfit</h2>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="#theater-table" class="btn btn-transparent">More Info</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <h2 id="theater-table" class="mt-5 mb-3">Theater Profit</h2>
+            <div class="table-responsive-md table-border">
+                <table class="table table-borderless table-profit ">
+                    <thead>
+                        <tr>
+                            <th style="width: 40%">Theater Name</th>
+                            <th style="width: 20%">Daily Tickets</th>
+                            <th style="width: 20%">Daily Sales</th>
+                            <th style="width: 20%">Monthly Sales</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (TicketsProfitsViewModel item in Model.TheatersProfits)
+                        {
+                            @if (@item.MonthlyProfit != 0)
+                            {
+                                <tr>
+                                    <td>@item.TheaterName</td>
+                                    <td>@item.DailyTickets</td>
+                                    <td>@item.DailyProfit</td>
+                                    <td>@item.MonthlyProfit</td>
+                                </tr>
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+        <div class="row">
+
+            <h2 id="movies-table" class="mt-5 mb-3">Movies Profit</h2>
+            <div class="table-responsive-md table-border">
+                <table class="table table-borderless table-profit ">
+                    <thead>
+                        <tr>
+                            <th style="width: 40%">Movie Name</th>
+                            <th style="width: 20%">Daily Tickets</th>
+                            <th style="width: 20%">Daily Sales</th>
+                            <th style="width: 20%">Monthly Sales</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (TicketsProfitsViewModel item in Model.MoviesProfits)
+                        {
+                            @if (@item.MonthlyProfit != 0)
+                            {
+                                <tr>
+                                    <td>@item.MovieName</td>
+                                    <td>@item.DailyTickets</td>
+                                    <td>@item.DailyProfit</td>
+                                    <td>@item.MonthlyProfit</td>
+                                </tr>
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Movie>
+@{
+    ViewData["Title"] = "Movies";
+}
+
+<!-- ------------------------------------ Movies Section ------------------------------------------ -->
+<section class="section mb-5">
+    <h2 id="section-header" class="section-title position-relative text-center my-5">Movies</h2>
+    <div class="container">
+        <form method="post" asp-action="Index" class="movie-button d-flex flex-column flex-md-row justify-content-md-around mb-5">
+            <input id="now" type="submit" class="movie-btn btn btn-outline-main mb-2 active" asp-route-status="now" value="Now Showing">
+            <input id="all" type="submit" class="movie-btn btn btn-outline-main mb-2 " asp-route-status="all" value="All Movies">
+            <input id="soon" type="submit" class="movie-btn btn btn-outline-main mb-2" asp-route-status="soon" value="Coming Soon">
+        </form>
+        @if (Model.Any())
+        {
+            <partial name="_AllMovies" model="Model" />
+
+        }
+        else
+        {
+            <div>No Movie to Show</div>
+        }
+    </div>
+</section>
+
+
+
+

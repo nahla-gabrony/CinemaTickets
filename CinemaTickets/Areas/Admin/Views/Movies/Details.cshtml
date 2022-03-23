@@ -1,0 +1,111 @@
+﻿@model MovieEditViewModel
+@section CssFile {
+    <link href="~/css/admin.min.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Details Movie";
+}
+
+<section class="section create-section form-section">
+    <h2 id="section-header" class="section-title position-relative text-center my-1">Edit</h2>
+    <div class="container">
+
+        <form>
+            <div class="card-front my-5 m-auto p-3">
+                <div class="row">
+
+                    <div class="img-details d-flex justify-content-center mb-2 overflow-hidden">
+                        <img id="form-image" src="~/@Model.ExistPhoto" />
+                    </div>
+
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label asp-for="MovieName"></label>
+                        <input asp-for="MovieName" type="text" class="input-field" readonly>
+                        <i class="fas fa-film details-icon"></i>
+
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label asp-for="MovieDescription"></label>
+                        <input asp-for="MovieDescription" type="text" class="input-field" readonly>
+                        <i class="fas fa-info details-icon"></i>
+
+                    </div>
+
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <label asp-for="MovieRunningTime"></label>
+                        <input asp-for="MovieRunningTime" type="text" class="input-field" readonly>
+                        <i class="far fa-clock details-icon"></i>
+
+                    </div>
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <label asp-for="CountryId"></label>
+                        <select asp-for="CountryId" asp-items="@(new SelectList(@ViewBag.Countries, "Id", "CountryName"))" id="country-list" disabled>
+                        </select>
+                        <i class="far fa-globe details-icon"></i>
+
+                    </div>
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <label asp-for="LanguageId"></label>
+                        <select asp-for="LanguageId" asp-items="@(new SelectList(@ViewBag.languages, "Id", "LanguageName"))" id="language-list" disabled>
+                        </select>
+                        <i class="far fa-language details-icon"></i>
+
+                    </div>
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <label asp-for="GenresId"></label>
+                        <select asp-for="GenresId" asp-items="@(new SelectList(@ViewBag.Genres, "Id", "GenreName"))" id="genre-list" disabled>
+                        </select>
+                        <i class="far fa-tasks details-icon"></i>
+
+                    </div>
+
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <label asp-for="ActorsId"></label>
+                        <select asp-for="ActorsId" asp-items="@(new SelectList(@ViewBag.Actors, "Id", "CrewName"))" id="actors-list"  multiple size="2" disabled>
+                        </select>
+                        <i class="far fa-users details-icon"></i>
+
+                    </div>
+
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <label asp-for="WritersId"></label>
+                        <select asp-for="WritersId" asp-items="@(new SelectList(@ViewBag.Writers, "Id", "CrewName"))" id="writers-list"  multiple size="2" disabled>
+                        </select>
+                        <i class="far fa-users details-icon"></i>
+
+                    </div>
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <label asp-for="DirectorsId"></label>
+                        <select asp-for="DirectorsId" asp-items="@(new SelectList(@ViewBag.Directors, "Id", "CrewName"))" id="directors-list"  multiple size="2" disabled>
+                        </select>
+                        <i class="far fa-users details-icon"></i>
+
+                    </div>
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <label asp-for="MovieRate"></label>
+                        <input asp-for="MovieRate" type="text" class="input-field" readonly>
+                        <i class="fas fa-certificate details-icon"></i>
+
+                    </div>
+                    <div class="col-12 col-md-6 form-group position-relative my-4">
+                        <label asp-for="MovieReleaseDate"></label>
+                        <input asp-for="MovieReleaseDate" type="date" class="input-field" readonly>
+                        <i class="far fa-calendar-alt details-icon"></i>
+
+                    </div>
+
+                    <div asp-validation-summary="ModelOnly" class="input-validation"> </div>
+                    <div class="col-12 form-group my-4 d-flex flex-column flex-sm-row justify-content-around">
+                        <a asp-action="Edit" asp-route-id="@Model.MovieId" class="btn btn-main fs-5 px-5 py-2">Edit</a>
+                        <a asp-action="Index" class="btn btn-danger fs-5 px-5 py-2">Back</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+@section AdminJs {
+    <script src="~/js/bundle.js"></script>
+}

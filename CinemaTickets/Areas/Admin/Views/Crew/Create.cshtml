@@ -1,0 +1,89 @@
+﻿@model CrewDetailsCreateViewModel
+@section CssFile {
+    <link href="~/css/admin.min.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Create Crew";
+}
+
+<section class="section create-section form-section">
+    <h2 id="section-header" class="section-title position-relative text-center my-1">Create</h2>
+    <div class="container">
+        @if (Model?.IsSuccess == true)
+        {
+            <div class="alert alert-success alert-dismissible fade show m-auto my-5 alert-create d-flex align-items-center" role="alert">
+                <i class="far fa-info-circle fs-4 pe-2"></i>
+                <div>
+                    <span><strong>Congratulations</strong> You Add New Crew Successfully, </span>
+                    <span>Click Here to</span>
+                    <a asp-area="Admin" asp-controller="Crew" asp-action="Index" class="alert-link"><strong>Back to Crew Page</strong></a>.
+                </div>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <form id="form" method="post" enctype="multipart/form-data" asp-action="Create">
+
+            <div class="card-front my-5 m-auto p-3">
+                <div class="row">
+                    <div class="img-preview d-flex justify-content-center mb-2 overflow-hidden">
+                        <img id="form-image" src="" />
+                    </div>
+                    <div class="col-12 form-group position-relative mb-3">
+                        <input asp-for="CoverPhoto" id="image-url" class="input-field">
+                        <label for="image-url" class="btn-main px-3">Choose a Cover Image</label>
+                        <span asp-validation-for="CoverPhoto" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative">
+                        <input asp-for="GallaryPhotos" id="GallaryPhotos" class="input-field">
+                        <label for="GallaryPhotos" class="btn-main">Choose a Gallary Images</label>
+                        <span asp-validation-for="GallaryPhotos" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <input id="name" asp-for="CrewName" type="text" class="input-field" placeholder="Crew Name">
+                        <i class="fas fa-user input-icon"></i>
+                        <span asp-validation-for="CrewName" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <input id="description" asp-for="CrewBiography" type="text" class="input-field" placeholder="Crew Biography">
+                        <i class="fas fa-info input-icon"></i>
+                        <span asp-validation-for="CrewBiography" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <select asp-for="NationalityId" asp-items="@(new SelectList(@ViewBag.Countries, "Id", "CountryName"))" id="country-list">
+                        </select>
+                        <i class="far fa-map-marked-alt input-icon"></i>
+                        <span asp-validation-for="NationalityId" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <select asp-for="CrewRoleId" asp-items="@(new SelectList(@ViewBag.CrewRoles, "Id", "CrewRoleName"))" id="crewType-list">
+                        </select>
+                        <i class="far fa-user-secret input-icon"></i>
+                        <span asp-validation-for="CrewRoleId" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6 form-group position-relative my-4">
+                        <input asp-for="CrewDateofBirth" value="@DateTime.Today" type="date" class="input-field" placeholder="Crew Date of Birth">
+                        <i class="far fa-calendar-alt input-icon"></i>
+                        <span asp-validation-for="CrewDateofBirth" class="input-validation"></span>
+                    </div>
+
+                    <div asp-validation-summary="ModelOnly" class="input-validation"> </div>
+
+                    <div class="col-12 form-group my-4 d-flex flex-column flex-sm-row justify-content-around">
+                        <input type="submit" value="Create" class=" btn btn-success fs-5 px-5 py-2 mb-3 mb-sm-0">
+                        <a asp-area="Admin" asp-action="Index" class=" btn btn-danger fs-5 px-5 py-2">Back</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+@section AdminJs {
+    <script src="~/js/bundle.js"></script>
+}

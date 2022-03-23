@@ -1,0 +1,71 @@
+﻿@section CssFile {
+    <link href="~/css/main.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Home";
+}
+<!-- ------------------------------------ Slides Section ------------------------------------------ -->
+@if (Model.Slides.Count > 0)
+{
+<section>
+    <div id="section-header" class="carousel mainSlides d-none d-md-flex" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            @for (int i = 0; i < Model.SlidesCounter; i++)
+            {
+                <button type="button" data-bs-target="#mainSlides" data-bs-slide-to="@i" class="slide-btn"></button>
+            }
+        </div>
+        <div class="carousel-inner">
+            @foreach (Slide slide in Model.Slides)
+            {
+                @if (slide.IsActive == true)
+                {
+                    <div class="carousel-item position-relative slide">
+                        <img src="~/@slide.SlideImageURL" class="d-block w-100 slide-img" asp-append-version="true">
+                        <div class="carousel-caption flex-column justify-content-center position-absolute d-none d-sm-flex">
+                            <h2 class="MovieName">@slide.SlideTitle </h2>
+                            <p class="subtitle">@slide.SlideDetails</p>
+                            @if(slide.Id != 1){
+                            <a asp-controller="Movies" asp-action="Details" asp-route-id="@slide.MovieId"  class="btn fw-bold btn-main">
+                                Movie Details
+                                <i class="far fa-ticket-alt p-2 ticket-icon"></i>
+                            </a>
+                            }
+
+
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+        <button class="carousel-control-prev slide-prev" type="button" data-bs-target="#mainSlides" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next slide-next" type="button" data-bs-target="#mainSlides" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+}
+<!-- ------------------------------------ Movies Section ------------------------------------------ -->
+<section class="section mb-5">
+    <h2 class="section-title position-relative text-center my-5">Movies</h2>
+    <div class="container">
+        <form method="post" asp-action="Index" class="movie-button d-flex flex-column flex-md-row justify-content-md-around mb-5">
+            <input id="now" type="submit" class="movie-btn btn btn-outline-main mb-2 active" asp-route-status="now" value="Now Showing">
+            <input id="all" type="submit" class="movie-btn btn btn-outline-main mb-2 " asp-route-status="all" value="All Movies">
+            <input id="soon" type="submit" class="movie-btn btn btn-outline-main mb-2" asp-route-status="soon" value="Coming Soon">
+        </form>
+        @if (Model.Movies.Count > 0)
+        {
+            <partial name="_AllMovies" model="Model.Movies" />
+        }
+        else
+        {
+            <div>No Movie to Show</div>
+        }
+    </div>
+</section>

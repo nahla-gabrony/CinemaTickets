@@ -1,0 +1,68 @@
+﻿@model SlideEditViewModel
+@section CssFile {
+    <link href="~/css/admin.min.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Edit Slide";
+}
+
+<section class="section create-section form-section">
+    <h2 id="section-header" class="section-title position-relative text-center my-1">Edit</h2>
+    <div class="container">
+
+        <form enctype="multipart/form-data" method="post" asp-action="Edit">
+            <div class="card-front my-5 m-auto p-3">
+                <div class="row">
+                    <input hidden asp-for="SlideId" />
+                    <input hidden asp-for="ExistPhoto" />
+
+                    <div class="img-details d-flex justify-content-center mb-2 overflow-hidden">
+                        <img id="form-image" src="~/@Model.ExistPhoto" />
+                    </div>
+                    <div class="col-12 form-group position-relative">
+                        <input asp-for="CoverPhoto" id="image-url" class="input-field hide-file-name">
+                        <label for="image-url" class="btn-main">Choose an Image</label>
+                        <span asp-validation-for="CoverPhoto" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label asp-for="SlideTitle"></label>
+                        <input asp-for="SlideTitle" type="text" class="input-field">
+                        <i class="fas fa-file-signature details-icon"></i>
+                        <span asp-validation-for="SlideTitle" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label asp-for="MovieId"></label>
+                        <select asp-for="MovieId" asp-items="@(new SelectList(@ViewBag.Movies, "Id", "MovieName"))" id="movie-list">
+                            <option value=""></option>
+                        </select>
+                        <i class="fas fa-info details-icon"></i>
+                        <span asp-validation-for="MovieId" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label asp-for="SlideDetails"></label>
+                        <input asp-for="SlideDetails" type="text" class="input-field">
+                        <i class="fas fa-film details-icon"></i>
+                        <span asp-validation-for="SlideDetails" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12 form-group position-relative mt-4">
+                        <label>
+                            <input asp-for="IsActive" type="checkbox"> Active
+                        </label>
+                    </div>
+                    <div asp-validation-summary="ModelOnly" class="input-validation"> </div>
+                    <div class="col-12 form-group my-4 d-flex flex-column flex-sm-row justify-content-around">
+                        <input type="submit" value="Update" class=" btn btn-success fs-5 px-5 py-2 mb-3 mb-sm-0">
+                        <a asp-area="Admin" asp-action="Index" class="btn btn-danger fs-5 px-5 py-2">Back</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+@section AdminJs {
+    <script src="~/js/bundle.js"></script>
+}

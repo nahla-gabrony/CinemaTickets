@@ -1,0 +1,73 @@
+﻿@model ConfirmEmailViewModel
+@section CssFile {
+    <link href="~/css/main.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Confirm Email";
+}
+
+<section class="section  form-section">
+    <div class="container">
+        @if (Model.IsVerified == true)
+        {
+            <div class="alert alert-success alert-dismissible fade show m-auto my-5 alert-create d-flex align-items-center" role="alert">
+                <i class="far fa-info-circle fs-4 pe-2"></i>
+                <div>
+                    <span><strong>Congratulations</strong> You Confirm Your Email successfully, </span>
+                    <span>Click Here to</span>
+                    <a asp-controller="Account" asp-action="Sign" class="alert-link"><strong>Sign in</strong></a>.
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        else
+        {
+            if (Model.IsSend)
+            {
+                <div class="alert alert-success alert-dismissible fade show m-auto my-5 alert-create d-flex align-items-center" role="alert">
+                    <i class="far fa-info-circle fs-4 pe-2"></i>
+                    <div>
+                        <div>
+                            <span> We Send Confirm Email again. Please go to your Email To confirm your account. </span>
+                            <span>Click Here to</span>
+                            <a asp-controller="Account" asp-action="Sign" class="alert-link"><strong>Sign in</strong></a>.
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-success alert-dismissible fade show m-auto my-5 alert-create d-flex align-items-center" role="alert">
+                    <i class="far fa-info-circle fs-4 pe-2"></i>
+                    <div>
+                        <div>
+                            <span><strong>Congratulations</strong> You create new account successfully. Please go to your Email To confirm your account. </span>
+                            <span>Click Here to</span>
+                            <a asp-controller="Account" asp-action="Sign" class="alert-link"><strong>Sign in</strong></a>.
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+            }
+            <form asp-action="ConfirmEmail">
+                <div class="card-front my-5 m-auto p-3">
+                    <h4 class="mb-4 pb-3 content-title text-center">Confirm Email</h4>
+                    <div class="row">
+                        <input asp-for="Email" hidden>
+                        <div class="form-group position-relative mt-4">
+                            <p>Did not get any email or deleted by mistake?</p>
+                        </div>
+                        <div asp-validation-summary="ModelOnly" class="input-validation"> </div>
+
+                        <div class="col-12 form-group my-4">
+                            <input type="submit" value="Resend Confirm Email" class="btn btn-main fs-5 mt-2 px-3 py-2">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        }
+    </div>
+</section>
+

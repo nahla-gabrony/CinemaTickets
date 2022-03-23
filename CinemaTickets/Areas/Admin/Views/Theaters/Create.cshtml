@@ -1,0 +1,70 @@
+﻿@model TheaterCreateViewModel
+@section CssFile {
+    <link href="~/css/admin.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Create Theater";
+}
+
+<section class="section create-section form-section">
+    <h2 id="section-header" class="section-title position-relative text-center my-1">Create</h2>
+    <div class="container">
+        @if (Model?.IsSuccess == true)
+        {
+            <div class="alert alert-success alert-dismissible fade show m-auto my-5 alert-create d-flex align-items-center" role="alert">
+                <i class="far fa-info-circle fs-4 pe-2"></i>
+                <div>
+                    <span><strong>Congratulations</strong> You Add New Theater Successfully, </span>
+                    <span>Click Here to</span>
+                    <a asp-area="Admin" asp-controller="Theaters" asp-action="Index" class="alert-link"><strong>Back to Theater Page</strong></a>.
+                </div>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <form id="form" method="post" enctype="multipart/form-data" asp-action="Create">
+
+            <div class="card-front my-5 m-auto p-3">
+                <div class="row">
+                    <div class="img-preview d-flex justify-content-center mb-2 overflow-hidden">
+                        <img id="form-image" src="" />
+                    </div>
+                    <div class="col-12 form-group position-relative mb-3">
+                        <input asp-for="CoverPhoto" id="image-url" class="input-field">
+                        <label for="image-url" class="btn-main px-3">Choose a Cover Image</label>
+                        <span asp-validation-for="CoverPhoto" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <input id="name" asp-for="TheaterName" type="text" class="input-field" placeholder="Theater Name">
+                        <i class="fas fa-film input-icon"></i>
+                        <span asp-validation-for="TheaterName" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <input id="description" asp-for="TheaterDetails" type="text" class="input-field" placeholder="Theater Details">
+                        <i class="fas fa-info input-icon"></i>
+                        <span asp-validation-for="TheaterDetails" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <input id="description" asp-for="TheaterLocation" type="text" class="input-field" placeholder="Theater Loction">
+                        <i class="far fa-map-marked-alt input-icon"></i>
+                        <span asp-validation-for="TheaterLocation" class="input-validation"></span>
+                    </div>
+
+
+                    <div asp-validation-summary="ModelOnly" class="input-validation"> </div>
+
+                    <div class="col-12 form-group my-4 d-flex flex-column flex-sm-row justify-content-around">
+                        <input type="submit" value="Create" class=" btn btn-success fs-5 px-5 py-2 mb-3 mb-sm-0">
+                        <a asp-area="Admin" asp-action="Index" class=" btn btn-danger fs-5 px-5 py-2">Back</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+@section AdminJs {
+    <script src="~/js/admin.min.js"></script>
+}

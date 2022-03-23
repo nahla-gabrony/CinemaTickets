@@ -1,0 +1,153 @@
+﻿@model PagedResult<ApplicationUser>
+@section CssFile {
+    <link href="~/css/admin.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Users";
+}
+
+<section class="section index-section mb-5">
+    <h2 id="section-header" class="section-title position-relative text-center my-5">Users</h2>
+    <div class="container">
+        @if (ViewBag.EditSuccess == true)
+        {
+            <div class="toast position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-black">
+                    <strong class="me-auto text-success">Update User</strong>
+                    <small>Just Now</small>
+                    <button type="button" class="btn" data-bs-dismiss="toast" aria-label="Close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="toast-body bg-light text-black">
+                    <strong>Congratulations</strong> You Update the User Successfully.
+                </div>
+            </div>
+        }
+        @if (ViewBag.DeleteSuccess == true)
+        {
+            <div class="toast position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-black">
+                    <strong class="me-auto text-danger">Delete User</strong>
+                    <small>Just Now</small>
+                    <button type="button" class="btn" data-bs-dismiss="toast" aria-label="Close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="toast-body bg-light text-black">
+                    <strong>Congratulations</strong> You Delete the User Successfully.
+                </div>
+            </div>
+        }
+    <div class="row">
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-5">
+            <a class="btn btn-success mb-5 mb-md-0" asp-area="" asp-controller="Account" asp-action="Sign">Add Users</a>
+            <form class="d-flex" method="post" asp-action="Index">
+                <input class="form-control me-2" type="search" placeholder="Search" value="@ViewData["SearchString"]" name="search">
+                <input class="btn btn-main" type="submit" value="Search">
+            </form>
+            <form class="d-flex" method="post" asp-action="Index">
+                <input class="btn btn-primary me-3" type="submit" asp-route-search="Employee" value="Employee">
+                <input class="btn btn-primary" type="submit" asp-route-search="All" value="All Users">
+            </form>
+
+        </div>
+        <div class="table-responsive-md table-border">
+            @if (Model.Results.Any())
+            {
+                <table class="table table-borderless table-profit ">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">User Name</th>
+                            <th style="width: 20%">User Email</th>
+                            <th style="width: 60%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ var i = 1; }
+                        @foreach (var user in Model.Results)
+                        {
+                            var rowNo = (Model.CurrentPage - 1) * Model.PageSize + i;
+                            i++;
+                            <tr>
+                                <td>@user.FirstName @user.LastName</td>
+                                <td>@user.Email</td>
+
+                                <td class="d-flex flex-column flex-md-row justify-content-around align-items-center">
+                                    <a asp-area="Admin" asp-controller="Users" asp-action="Edit" asp-route-userId="@user.Id" class="btn btn-success mb-5 mb-md-0">Edit</a>
+                                    <a asp-area="Admin" asp-controller="Users" asp-action="Details" asp-route-userId="@user.Id" class="btn btn-main mb-5 mb-md-0">Details</a>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#model-@user.Id" class="btn btn-danger mb-5 mb-md-0">Delete</button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="model-@user.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog text-black">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-black text-white">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete the "@user.FirstName @user.LastName" user?
+
+                                                </div>
+                                                <form method="post" class="modal-footer">
+                                                    <button type="submit" asp-area="Admin" asp-controller="Users" asp-action="Delete" asp-route-userId="@user.Id" class="btn btn-danger">Confirm Delete</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <table class="table table-borderless table-profit ">
+                    <thead>
+                        <tr>
+                            <th style="width: 100%">No Users Created yet</th>
+                        </tr>
+                    </thead>
+                </table>
+            }
+
+        </div>
+
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "d-none" : "";
+            var nextDisabled = !Model.HasNextPage ? "d-none" : "";
+        }
+    <nav class="mt-5">
+        <form method="post" asp-action="Index">
+            <ul class="pagination justify-content-center">
+
+                <li class="page-item">
+                    <input type="submit"
+                           asp-route-page="@(Model.CurrentPage - 1)"
+                           asp-route-search="@ViewData["SearchString"]"
+                           class="page-link @prevDisabled"
+                           value="&laquo;">
+                </li>
+                @for (var p = 1; p <= Model.PageCount; p++)
+                {
+                    <li class="page-item">
+                        <input type="submit" asp-route-search="@ViewData["SearchString"]" asp-route-page="@p" class="page-link" value="@p">
+                    </li>
+                }
+                <li class="page-item">
+                    <input type="submit"
+                             asp-route-page="@(Model.CurrentPage + 1)"
+                             asp-route-search="@ViewData["SearchString"]"
+                             class="page-link  @nextDisabled"
+                            value="&raquo;">
+                </li>
+
+            </ul>
+        </form>
+    </nav>
+    </div>
+    </div>
+</section>
+@section AdminJs {
+    <script src="~/js/admin.js"></script>
+}
+

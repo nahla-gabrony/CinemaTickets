@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Not Found";
+}
+
+<section class="not-found">
+    <div class="center">
+        <div class="error">
+            <div class="number">4</div>
+            <div class="img-container">
+                <img class="not-found-img" src="~/images/AccessDenied/not-Found.png">
+            </div>
+            <div class="number">4</div>
+        </div>
+        @if (ViewBag.Message == null)
+        {
+            <div class="text">Oops. The page you're looking for doesn't exist.</div>
+        }
+        else
+        {
+            <div class="text">@ViewBag.Message</div>
+        }
+        <a class="btn btn-main mt-5" asp-area="" asp-controller="Home" asp-action="Index">Back Home</a>
+    </div>
+</section>
+

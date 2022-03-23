@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Search For: " + ViewData["SearchString"];
+}
+<!-- ------------------------------------ Crew Section ------------------------------------------ -->
+@if (Model.Crews.Count == 0 && Model.Movies.Count == 0 && Model.Theaters.Count == 0)
+{
+    <section class="not-found">
+        <div class="center">
+            <div class="main-color">Oops. There is No Search Result.</div>
+            <a class="btn btn-main mt-5" asp-area="" asp-controller="Home" asp-action="Index">Back Home</a>
+        </div>
+    </section>
+
+}
+else
+{
+    @if (Model.Crews.Count > 0)
+    {
+        <section class="section  details-section mb-5">
+            <div class="container">
+                <h4 id="section-header" class="mb-4">Crew</h4>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    @foreach (Crew crew in Model.Crews)
+                    {
+                        <div class="col">
+                            <div class="card card-color card-active  position-relative">
+                                <div class="card-header">
+                                    <img src="@crew.CrewImageURL" class="card-img-top card-img" asp-append-version="true">
+                                </div>
+                                <div class="card-body position-relative">
+                                    <h5 class="card-MovieName text-center">
+                                        @crew.CrewName
+                                    </h5>
+                                    <a asp-controller="Crew" asp-action="Details" asp-route-id="@crew.Id" class="btn btn-main fw-bold fs-5 p-2 card-icon">
+                                        <span class="ps-2"> More Details</span>
+                                        <i class="far fa-ticket-alt p-2  ticket-icon"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+    <!-- ------------------------------------ Movies Section ------------------------------------------ -->
+    @if (Model.Movies.Count > 0)
+    {
+        <section class="section  details-section mb-5">
+            <div class="container">
+                <h4 id="section-header" class="mb-4">Movies</h4>
+                <partial name="_AllMovies" model="Model.Movies" />
+            </div>
+        </section>
+    }
+    <!-- ------------------------------------ Theaters Section ------------------------------------------ -->
+    @if (Model.Theaters.Count > 0)
+    {
+        <section>
+            <section class="section  details-section mb-5">
+                <div class="container">
+                    <h4 id="section-header" class="mb-4">Theaters</h4>
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        @foreach (Theater theater in Model.Theaters)
+                        {
+                            <div class="col">
+                                <div class="card card-color card-active  position-relative">
+                                    <div class="card-header">
+                                        <img src="@theater.TheaterImageURL" class="card-img-top card-img" asp-append-version="true">
+                                    </div>
+                                    <div class="card-body position-relative">
+                                        <h5 class="card-MovieName text-center">
+                                            @theater.TheaterName
+                                        </h5>
+                                        <a asp-controller="Theaters" asp-action="Details" asp-route-id="@theater.Id" class="btn btn-main fw-bold fs-5 p-2 card-icon">
+                                            <span class="ps-2"> More Details</span>
+                                            <i class="far fa-ticket-alt p-2  ticket-icon"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        </section>
+    }
+}

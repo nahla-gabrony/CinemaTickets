@@ -1,0 +1,57 @@
+﻿@model List<UsersRoleViewModel>
+@inject Microsoft.AspNetCore.Identity.RoleManager<IdentityRole> _roleManager
+@section CssFile {
+    <link href="~/css/admin.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "User In Role";
+    string roleId = Convert.ToString(ViewData["roleId"]);
+    var role = await _roleManager.FindByIdAsync(roleId);
+    var roleName = role.Name;
+}
+<section class="section form-section admin-details-section">
+    <h2 id="section-header" class="section-title position-relative text-center my-1">Role</h2>
+    <div class="container">
+        <form id="form" method="post">
+            <div class="card-front my-5 m-auto p-3">
+                <div class="row">
+                    <div class="col-12 form-group position-relative mt-4">
+                        <div class="card text-white bg-card mb-3">
+                            <h5 class="card-header">Edit/Remove Users In (@roleName) Role</h5>
+                            <div class="card-body">
+                                @if (Model.Any())
+                                {
+                                    @for (int i = 0; i < Model.Count; i++)
+                                    {
+                                        <input asp-for="@Model[i].UserName" hidden>
+                                        <input asp-for="@Model[i].UserId" hidden>
+                                        <div class="form-check">
+                                            <input class="form-check-input" asp-for="@Model[i].IsSelected">
+                                            <label class="form-check-label" asp-for="@Model[i].IsSelected">  @Model[i].UserName  </label>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <p class="card-text">There are no user created yet</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div asp-validation-summary="ModelOnly" class="input-validation"> </div>
+                    <div class="col-12 form-group my-4 d-flex flex-column flex-sm-row justify-content-around">
+                        <input type="submit" value="Update" class=" btn btn-success fs-5 px-5 py-2 mb-3 mb-sm-0">
+                        <a asp-area="Admin" asp-controller="Roles" asp-action="Edit" asp-route-roleId="@roleId" class="btn btn-danger fs-5 px-5 py-2">Back</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+
+@section AdminJs {
+    <script src="~/js/admin.js"></script>
+}

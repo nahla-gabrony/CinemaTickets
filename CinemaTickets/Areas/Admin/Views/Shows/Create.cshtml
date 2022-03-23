@@ -1,0 +1,116 @@
+﻿@model ShowEditViewModel
+@section CssFile {
+    <link href="~/css/admin.min.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Create Show";
+}
+
+<section class="section create-section form-section">
+    <h2 id="section-header" class="section-title position-relative text-center my-1">Create</h2>
+    <div class="container">
+        @if (ViewBag.IsSuccess == true)
+        {
+            <div class="alert alert-success alert-dismissible fade show m-auto my-5 alert-create d-flex align-items-center" role="alert">
+                <i class="far fa-info-circle fs-4 pe-2"></i>
+                <div>
+                    <span><strong>Congratulations</strong> You Add new Show successfully, </span>
+                    <span>Click Here to</span>
+                    <a asp-area="Admin" asp-controller="Shows" asp-action="Index" class="alert-link"><strong>Back to Show Page</strong></a>.
+                </div>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <form id="form" method="post"  asp-action="Create">
+
+            <div class="card-front my-5 m-auto p-3">
+                <div class="row">
+
+                    <div class="col-12 form-group position-relative mt-4">
+                        <input id="name" asp-for="ShowStartDate" value="@DateTime.Today" type="date" class="input-field" placeholder="Show Start Date">
+                        <i class="far fa-calendar-alt input-icon"></i>
+                        <span asp-validation-for="ShowStartDate" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <input id="description" asp-for="ShowEndDate" value="@DateTime.Today" type="date" class="input-field" placeholder="Show End Date">
+                        <i class="far fa-calendar-alt input-icon"></i>
+                        <span asp-validation-for="ShowEndDate" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 col-6 form-group position-relative mt-4">
+                        <select asp-for="TimeId" asp-items="@(new SelectList(@ViewBag.Times, "Value", "Text"))" id="movietime-list">
+                        </select>
+                        <i class="far far fa-clock input-icon"></i>
+                        <span asp-validation-for="TimeId" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12 col-6  form-group position-relative mt-4">
+                        <select asp-for="MovieId" asp-items="@(new SelectList(@ViewBag.Movies, "Id", "MovieName"))" id="movie-list">
+                            <option value=""></option>
+                        </select>
+                        <i class="fas fa-film input-icon"></i>
+                        <span asp-validation-for="MovieId" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12 form-group position-relative mt-4">
+                        <select id="TheaterId" class="input-field" asp-for="TheaterId" asp-items="@(new SelectList(@ViewBag.Theaters, "Id", "TheaterName"))">
+                            <option selected disabled> Choose Cinema</option>
+                        </select>
+                        <i class="far fa-map-marker-alt input-icon"></i>
+                        <span asp-validation-for="TheaterId" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                    <select id="ScreenId" class="input-field" asp-for="ScreenId">
+                            <option selected disabled> Choose Screen</option>
+                        </select>
+                        <i class="far fa-desktop input-icon"></i>
+                        <span asp-validation-for="ScreenId" class="input-validation"></span>
+                    </div>
+
+                    <div asp-validation-summary="ModelOnly" class="input-validation"> </div>
+
+                    <div class="col-12 form-group my-4 d-flex flex-column flex-sm-row justify-content-around">
+                        <input type="submit" value="Create" class=" btn btn-success fs-5 px-5 py-2 mb-3 mb-sm-0">
+                        <a asp-area="Admin" asp-action="Index" class=" btn btn-danger fs-5 px-5 py-2">Back</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+@section JsonJs {
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var locationScreen = $('#ScreenId');
+            $("#TheaterId").change(function () {
+                $.getJSON({
+                    url: '@Url.Action("GetScreenByTheaterId", "Shows", new { area = "admin" })',
+                    dataType: 'json',
+                    contentType: "application/json",
+                    type: 'Get',
+                    data: {
+                        theaterId: $('#TheaterId').val(),
+                    },
+                    success: function (response) {
+                        locationScreen.empty();
+                        $.each(response,
+                            function (index, item) {
+                                locationScreen.append($('<option></option>').text(item.text).val(item.value));
+                            });
+                    }
+                })
+            });
+
+        });
+    </script>
+}
+@section AdminJs {
+    <script src="~/js/multiSelect.js"></script>
+}
+

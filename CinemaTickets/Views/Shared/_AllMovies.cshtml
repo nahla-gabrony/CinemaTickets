@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Movie>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var movie in Model)
+    {
+        <div class="col">
+            <div class="card card-color card-active  position-relative">
+                <div class="ribbon-wrapper position-absolute overflow-hidden">
+                    @if (movie.Show.Any(x => x.ShowStartDate < DateTime.Today && x.ShowEndDate > DateTime.Today) )
+                    {
+                        <div class="ribbon text-center position-relative bg-main text-white fw-bold">NOW</div>
+                    }
+                    @if (movie.Show.Any(x => x.ShowStartDate > DateTime.Today))
+                    {
+                        <div class="ribbon text-center position-relative bg-success text-white fw-bold">Soon</div>
+                    }
+               
+                </div>
+                <div class="card-header">
+                    <img src="@movie.MovieImageURL" class="card-img-top card-img" asp-append-version="true">
+                </div>
+                <div class="card-body position-relative">
+                    <h5 class="card-MovieName text-center">
+                        @movie.MovieName
+                    </h5>
+                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id" class="btn btn-main fw-bold fs-5 p-2 card-icon">
+                        <span class="ps-2"> Movie Details</span>
+                        <i class="far fa-ticket-alt p-2  ticket-icon"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

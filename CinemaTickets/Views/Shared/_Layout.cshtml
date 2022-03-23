@@ -1,0 +1,93 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService _authorizationService
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="/images/logo.png">
+    <!--  Font awesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
+          asp-fallback-test-class="btn"
+          asp-fallback-test-property="display"
+          asp-fallback-test-value="inline-block"
+          rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
+    <!-- Style -->
+    <link rel="stylesheet" href="~/css/site.min.css">
+    @RenderSection("CssFile", false)
+    <title>@ViewData["Title"] - Cinema Tickets</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar fixed-top navbar-expand-md ">
+        <div class="container">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <img src="/images/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                Cinema Tickets
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content">
+                <i class="fas fa-bars navbar-toggler-icon"></i>
+            </button>
+            <div class="collapse navbar-collapse d-md-flex justify-content-md-around" id="navbar-content">
+                <partial name="_Admin" />
+                @if (!(await _authorizationService.AuthorizeAsync(User, "AdminManage")).Succeeded)
+                {
+                    <form class="d-none d-md-flex" method="get" asp-controller="Home" asp-action="Search">
+                        <input class="form-control me-2" type="search" placeholder="Search" value="@ViewData["SearchString"]" name="search">
+                        <input class="btn btn-main" type="submit" value="Search">
+                    </form>
+                }
+                <ul class="navbar-nav">
+
+                    <partial name="_login" />
+                    <li class="nav-item me-2">
+                        <a class="nav-link fw-bold " aria-current="page" asp-area="" asp-controller="Movies" asp-action="Index">Movies</a>
+                    </li>
+                    <li class="nav-item me-2">
+                        <a class="nav-link fw-bold" aria-current="page" asp-area="" asp-controller="Theaters" asp-action="Index">Theaters</a>
+                    </li>
+                </ul>
+                <form class="d-flex d-md-none">
+                    <input class="form-control me-2" type="search" placeholder="Search">
+                    <button class="btn btn-main" type="submit">Search</button>
+                </form>
+
+            </div>
+
+        </div>
+    </nav>
+
+    <main>
+        @RenderBody()
+    </main>
+    <!-- Footer -->
+    <footer class="text-center p-4 fw-bold footer-color">
+        Copyright 2021 &copy; Cinema Tickets. All Rights Reserved.
+    </footer>
+
+
+
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+            integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+
+    <script src="~/js/site.min.js"></script>
+    @RenderSection("AdminJs", false)
+    @RenderSection("JsonJs", false)
+</body>
+</html>

@@ -1,0 +1,128 @@
+﻿@model IEnumerable<IdentityRole>
+@section CssFile {
+    <link href="~/css/admin.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<section class="section index-section mb-5">
+    <h2 id="section-header" class="section-title position-relative text-center my-5">Roles</h2>
+    <div class="container">
+        @if (ViewBag.EditSuccess == true)
+        {
+            <div class="toast position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-black">
+                    <strong class="me-auto text-success">Update Role</strong>
+                    <small>Just Now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-light text-black">
+                    <strong>Congratulations</strong> You Update the Role Successfully.
+                </div>
+            </div>
+        }
+        @if (ViewBag.DeleteSuccess == true)
+        {
+            <div class="toast position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-black">
+                    <strong class="me-auto text-danger">Delete Role</strong>
+                    <small>Just Now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-light text-black">
+                    <strong>Congratulations</strong> You Delete the Role Successfully.
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-5">
+                <a class="btn btn-success mb-5 mb-md-0" asp-area="Admin" asp-controller="Roles" asp-action="Create">Add Role</a>
+                <div class="d-flex flex-row">
+                    <input class="form-control me-2" type="search" placeholder="Search">
+                    <button class="btn btn-main" type="submit">Search</button>
+                </div>
+            </div>
+            <div class="table-responsive-md table-border">
+                @if (Model.Any())
+                {
+                    <table class="table table-borderless table-profit ">
+                        <thead>
+                            <tr>
+                                <th style="width: 40%">Role Name</th>
+                                <th style="width: 60%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var role in Model)
+                            {
+                                <tr>
+                                    <td>@role.Name</td>
+                                    <td class="d-flex flex-column flex-md-row justify-content-around align-items-center">
+                                        <a asp-area="Admin" asp-controller="Roles" asp-action="Edit" asp-route-roleId="@role.Id" class="btn btn-success mb-5 mb-md-0">Edit</a>
+                                        <a asp-area="Admin" asp-controller="Roles" asp-action="Details" asp-route-roleId="@role.Id" class="btn btn-main mb-5 mb-md-0">Details</a>
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#model-@role.Id" class="btn btn-danger mb-5 mb-md-0">Delete</button>
+
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="model-@role.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog text-black">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-black text-white">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete the "@role.Name" role?
+
+                                                    </div>
+                                                    <form method="post" class="modal-footer">
+                                                        <button type="submit" asp-area="Admin" asp-controller="Roles" asp-action="Delete" asp-route-roleId="@role.Id" class="btn btn-danger">Confirm Delete</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <table class="table table-borderless table-profit ">
+                        <thead>
+                            <tr>
+                                <th style="width: 100%">No Role Created yet</th>
+                            </tr>
+                        </thead>
+                    </table>
+                }
+
+            </div>
+
+            <nav class="mt-5">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <span>&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <span>&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+@section AdminJs {
+    <script src="~/js/admin.js"></script>
+}

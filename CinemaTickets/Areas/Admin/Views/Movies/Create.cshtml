@@ -1,0 +1,125 @@
+﻿@model MovieCreateViewModel
+@section CssFile {
+    <link href="~/css/admin.min.css" rel="stylesheet" />
+}
+@{
+    ViewData["Title"] = "Create Movie";
+}
+
+<section class="section create-section form-section">
+    <h2 id="section-header" class="section-title position-relative text-center my-1">Create</h2>
+    <div class="container">
+        @if (Model?.IsSuccess == true)
+        {
+            <div class="alert alert-success alert-dismissible fade show m-auto my-5 alert-create d-flex align-items-center" role="alert">
+                <i class="far fa-info-circle fs-4 pe-2"></i>
+                <div>
+                    <span><strong>Congratulations</strong> You Add new Movie successfully, </span>
+                    <span>Click Here to</span>
+                    <a asp-area="Admin" asp-controller="Movies" asp-action="Index" class="alert-link"><strong>Back to Movie Page</strong></a>.
+                </div>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <form id="form" method="post" enctype="multipart/form-data" asp-action="Create">
+
+            <div class="card-front my-5 m-auto p-3">
+                <div class="row">
+                    <div class="img-preview">
+                        <img id="form-image" src="" />
+                    </div>
+                    <div class="col-12 form-group position-relative mb-3">
+                        <input asp-for="CoverPhoto" type="file" id="image-url" class="input-field">
+                        <label for="image-url" class="btn-main px-3">Choose a Cover Image</label>
+                        <span asp-validation-for="CoverPhoto" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative">
+                        <input asp-for="GallaryPhotos" id="GallaryPhotos" class="input-field">
+                        <label for="GallaryPhotos" class="btn-main">Choose a Gallary Images</label>
+                        <span asp-validation-for="GallaryPhotos" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <input id="name" asp-for="MovieName" type="text" class="input-field" placeholder="Movie Name">
+                        <i class="fas fa-film input-icon"></i>
+                        <span asp-validation-for="MovieName" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 form-group position-relative mt-4">
+                        <input id="description" asp-for="MovieDescription" type="text" class="input-field" placeholder="Movie Details">
+                        <i class="fas fa-info input-icon"></i>
+                        <span asp-validation-for="MovieDescription" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <input asp-for="MovieRunningTime" type="text" class="input-field" placeholder="Movie Running Time">
+                        <i class="far fa-clock input-icon"></i>
+                        <span asp-validation-for="MovieRunningTime" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <select asp-for="CountryId" asp-items="@(new SelectList(@ViewBag.Countries, "Id", "CountryName"))" id="country-list">
+                        </select>
+                        <i class="far fa-globe input-icon"></i>
+                        <span asp-validation-for="CountryId" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <select asp-for="LanguageId" asp-items="@(new SelectList(@ViewBag.languages, "Id", "LanguageName"))" id="language-list">
+                        </select>
+                        <i class="far fa-language input-icon"></i>
+                        <span asp-validation-for="LanguageId" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <select asp-for="GenresId" asp-items="@(new SelectList(@ViewBag.Genres, "Id", "GenreName"))" id="genre-list" multiple size="3">
+                        </select>
+                        <i class="far fa-tasks input-icon"></i>
+                        <span asp-validation-for="GenresId" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <select asp-for="ActorsId" asp-items="@(new SelectList(@ViewBag.Actors, "Id", "CrewName"))" id="actors-list" multiple size="2">
+                        </select>
+                        <i class="far fa-users input-icon"></i>
+                        <span asp-validation-for="ActorsId" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <select asp-for="WritersId" asp-items="@(new SelectList(@ViewBag.Writers, "Id", "CrewName"))" id="writers-list" multiple size="2">
+                        </select>
+                        <i class="far fa-users input-icon"></i>
+                        <span asp-validation-for="WritersId" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <select asp-for="DirectorsId" asp-items="@(new SelectList(@ViewBag.Directors, "Id", "CrewName"))" id="directors-list" multiple size="2">
+                        </select>
+                        <i class="far fa-users input-icon"></i>
+                        <span asp-validation-for="DirectorsId" class="input-validation"></span>
+                    </div>
+
+                    <div class="col-12 col-md-6 form-group position-relative mt-4">
+                        <input asp-for="MovieRate" type="text" class="input-field" placeholder="Movie Rate">
+                        <i class="fas fa-certificate input-icon"></i>
+                        <span asp-validation-for="MovieRate" class="input-validation"></span>
+                    </div>
+                    <div class="col-12 col-md-6 form-group position-relative my-4">
+                        <input asp-for="MovieReleaseDate" value="@DateTime.Today" type="date" class="input-field" placeholder="Movie Release Date">
+                        <i class="far fa-calendar-alt input-icon"></i>
+                        <span asp-validation-for="MovieReleaseDate" class="input-validation"></span>
+                    </div>
+
+                    <div asp-validation-summary="ModelOnly" class="input-validation"> </div>
+
+                    <div class="col-12 form-group my-4 d-flex flex-column flex-sm-row justify-content-around">
+                        <input type="submit" value="Create" class=" btn btn-success fs-5 px-5 py-2 mb-3 mb-sm-0">
+                        <a asp-area="Admin" asp-action="Index" class=" btn btn-danger fs-5 px-5 py-2">Back</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+@section AdminJs {
+    <script src="~/js/bundle.js"></script>
+}

@@ -1,0 +1,99 @@
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser> _signInManager
+@model BookingTicketsViewModel
+@{
+    ViewData["Title"] = "Tickets";
+    var FirstName = User.FindFirst("UserFirstName").Value;
+    var LastName = User.FindFirst("UserLastName").Value;
+    FirstName = FirstName.Remove(1).ToUpper() + FirstName.Substring(1);
+    LastName = LastName.Remove(1).ToUpper() + LastName.Substring(1);
+}
+<section class="section checkout-section d-flex justify-content-center align-items-center">
+    <div class="container">
+        <form class="row" asp-action="Checkout">
+            <div class="ticket-card ps-4 card-left col-8">
+                <div class="d-flex align-items-center">
+                    <h2 class="pt-4 pt-sm-2">
+                        <span>@Model.TheaterName</span>
+                    </h2>
+                </div>
+                <div class="row g-5 mt-2">
+                    <div class="col-12">
+                        <i class="fas fa-film ticket-icon"></i>
+                        <span class="title">Movie</span>
+                        <h4 class="subtitle">@Model.MovieName</h4>
+                    </div>
+                    <div class="col-12">
+                        <i class="far fa-user"></i>
+                        <span class="title">Name</span>
+                        <h4 class="subtitle">@FirstName @LastName</h4>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <i class="fas fa-desktop"></i>
+                        <span class="title">Screen</span>
+                        <h4 class="subtitle">@Model.ScreenName</h4>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <i class="far fa-clock"></i>
+                        <span class="title">Time</span>
+                        <h4 class="subtitle">@Model.ShowTimeString</h4>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <i class="far fa-calendar-alt"></i>
+                        <span class="title">Date</span>
+                        <h4 class="subtitle">@Model.ShowDateString</h4>
+                    </div>
+                </div>
+
+            </div>
+            <div class="ticket-card card-right col-4 ">
+                <div class="d-flex justify-content-center pt-4 pt-sm-2">
+                    <i class="far fa-money-bill-wave fa-3x"></i>
+                </div>
+                <div class="row g-5 mt-2">
+                    <div class="col-12 col-sm-6">
+                        <div class="row">
+                            <div class="col-12 ">
+                                <span class="title">NO.</span>
+                            </div>
+                            <div class="col-12 d-flex flex-row align-items-center  subtitle">
+                                <h2 class="pe-1">@Model.TicketsCount</h2>
+                                <span>Tickets</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="title">Total</span>
+                            </div>
+
+                            <div class="col-12  d-flex flex-row align-items-center subtitle">
+                                <h2 class="pe-1">@Model.TicketsPrice</h2>
+                                <span>LE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="title">Seat No.</span>
+                            </div>
+                            <div class="col-12  d-flex flex-row align-items-center subtitle">
+                                @foreach (var item in Model.TicketsList)
+                                {
+                                    <span class="pe-3">@item </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-5">
+                        <input type="submit" value="Checkout" class="btn btn-main">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</section>

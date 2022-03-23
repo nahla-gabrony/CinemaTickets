@@ -1,0 +1,82 @@
+﻿@model TheaterViewModel
+@{
+    ViewData["Title"] = @Model.TheaterName;
+}
+<section  class="section  details-section mb-5">
+    <div class="container">
+        <div class="section-content">
+            <div class="section-header d-flex align-items-center">
+                <div class="icon-wrapper">
+                    <i class="far fa-video text-white"></i>
+                </div>
+                <div id="section-header" class="content-MovieName text-white fs-3 fw-bold"> @Model.TheaterName</div>
+            </div>
+            <div class="section-body">
+                <div class="row g-4 p-3">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card card-color position-relative">
+                            <div class="card-header">
+                                <img src="~/@Model.ExistPhoto" class="card-img-top card-img" asp-append-version="true">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-7">
+                        <div class="position-relative">
+                            <p><strong class="fs-5 main-color">Location: </strong>@Model.TheaterLocation</p>
+
+                            @if (@Model.TheaterDetails.Count() > 0)
+                            {
+                                var TheaterDetails = @Model.TheaterDetails;
+                                var DetailsList = TheaterDetails.Split("/");
+
+                                foreach (var Details in DetailsList)
+                                {
+                                    <p>
+                                        @Details
+                                    </p>
+                                }
+                            }
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Movies Section -->
+<section class="section  details-section mb-5">
+    <div class="container">
+        <h4 class="mb-4">Now Play</h4>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var movie in Model.Movies.Distinct(new MovieComparer()))
+            {
+                <div class="col">
+                    <div class="card card-color card-active  position-relative">
+                        <div class="ribbon-wrapper position-absolute overflow-hidden">
+                            <div class="ribbon text-center position-relative bg-main text-white fw-bold">NOW</div>
+                        </div>
+                        <div class="card-header">
+                            <img src="@movie.MovieImageURL" class="card-img-top card-img" asp-append-version="true">
+                        </div>
+                        <div class="card-body position-relative">
+                            <h5 class="card-MovieName text-center">
+                                @movie.MovieName
+                            </h5>
+                            <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id" class="btn btn-main fw-bold fs-5 p-2 card-icon">
+                                <span class="ps-2"> Book Tickets</span>
+                                <i class="far fa-ticket-alt p-2  ticket-icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+ 
+    </div>
+</section>

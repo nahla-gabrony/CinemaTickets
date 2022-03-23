@@ -1,0 +1,67 @@
+﻿@model IEnumerable<TheaterViewModel>
+
+@{
+    ViewData["Title"] = "Theaters";
+}
+
+<section  class="section mb-5">
+    <h2 class="section-title position-relative text-center my-5">Theaters</h2>
+    <div class="container">
+        @if (Model.Any())
+        {
+            @foreach (var theater in Model)
+            {
+
+                <div class="section-content" id="model-@theater.TheaterId">
+                    <div id="section-header" class="section-header d-md-flex">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-theater-masks text-white"></i>
+                        </div>
+                        <a asp-controller="Theaters" asp-action="Details" asp-route-id="@theater.TheaterId" class="content-title text-white fs-3 fw-bold flex-grow-1">@theater.TheaterName</a>
+                        <button class="accordion-button bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#model-@theater.TheaterId-body"> </button>
+                    </div>
+                    @*Movies Show In theater *@
+
+                    <div id="model-@theater.TheaterId-body" class="section-body show" data-bs-parent="#model-@theater.TheaterId">
+                        <div class="accordion-body">
+                            <div class="row row-cols-1 row-cols-md-3 g-4 p-3">
+                                @foreach (var movie in theater.Movies.Distinct(new MovieComparer()))
+                                {
+                                    <div class="col">
+                                        <div class="card card-color card-active  position-relative">
+                                            <div class="ribbon-wrapper position-absolute overflow-hidden">
+                                                <div class="ribbon text-center position-relative bg-main text-white fw-bold">NOW</div>
+                                            </div>
+                                            <div class="card-header">
+                                                <img src="@movie.MovieImageURL" class="card-img-top card-img" asp-append-version="true">
+                                            </div>
+                                            <div class="card-body position-relative">
+                                                <h5 class="card-MovieName text-center">
+                                                    @movie.MovieName
+                                                </h5>
+                                                <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id" class="btn btn-main fw-bold fs-5 p-2 card-icon">
+                                                    <span class="ps-2"> Movie Details</span>
+                                                    <i class="far fa-ticket-alt p-2  ticket-icon"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                           </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+        }
+        else
+        {
+            <div>No Theaters Created Yet</div>
+        }
+
+
+    </div>
+</section>
+
+
