@@ -1,5 +1,6 @@
 <h1 align="center">
-  Booking Cinema Tickets
+  <img width="30px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/logo.png" />
+    Booking Cinema Tickets
 </h1>
 
 ## 😎 Features
@@ -17,7 +18,7 @@
 - Show the profit of each Movies
 - Show the profit of each Theatre
 
-### 🧑‍ User features
+### 🧑 User features
 - Create new an account/External login email
 - Browse the different theater complexes and view their details
 - Browse the details about crew of every movie
@@ -57,22 +58,45 @@
   
   <h3>Search Page</h3>
   <h4> 
-    - Movies: can search by Movie Name / Crew Name / Movie Language /Movie production country 
-    - Crew: can search by Crew Name / Crew Nationality
-    - Therater: can search by Therater Name 
+    <p> - Movies: can search by Movie Name / Crew Name / Movie Language /Movie production country </p>
+    <p> - Crew: can search by Crew Name / Crew Nationality </p>
+    <p> - Therater: can search by Therater Name </p>
   </h4>
   <img src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Search.gif" />
   
   <h3>Booking Page</h3>
   <img src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/booking_seats.gif" />
   
+  <h3>Admin Dashboard Page</h3>
+  <img src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Dashboard.png" />
+  
+  <h3>Admin Therater/Screen Pages</h3>
+  <p> - Therater/Screen: can Create/Update/Delete/Search </p>
+  <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Theater_Index.png" />
+  <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Screen_Index.png" />
+  <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Theater_Create.png" />
+  <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Screen_Create.png" />
+  
+  <h3>Admin Movie/Crew Pages</h3>
+  <p> - Movie/Crew: can Create/Update/Delete/Search </p>
+  <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Movie_Index.png" />
+  <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Crew_Index.png" />
+  <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Movie_Create.png" />
+  <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Crew_Create.png" />
+  
+  <h3>Admin Slide Pages</h3>
+  <p> - Slide: can Create/Update/Delete </p>
+  <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Theater_Index.png" />
+  
+  <h3>Access Denied/Not Found Pages</h3>
+  <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Authorization_Page.png" />
+  <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Not_found.png" />
 </details>
 
 
 ## 🛠️ Installation Steps
 1.	Clone this repository    
 2.	Open the solution in Microsoft Visual Studio
-3.	Create database with command "Add-Migration CreateDatabase"
-4.	Update database with command "Update-Database"
-5.	Run the project
-6.	Users Email/Password in (users-password) text file
+3.	Update database with command "Update-Database"
+4.	Run the project
+5.	Users Email/Password in (users-password) text file
