@@ -25,10 +25,7 @@ namespace CinemaTickets.Data.Repository
             _dbSet = context.Set<T>();
         }
 
-        protected EntityRepository(CinemaTicketsContext context)
-        {
-            this.context = context;
-        }
+    
         public async Task<int> Count()
         {
             return await _dbSet.CountAsync();
