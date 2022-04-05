@@ -9,8 +9,8 @@ namespace CinemaTickets.Data.ViewModels.Account
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "Please Enter Your First Name")]
-        [Display(Name = "First Name")]
+        [Required(ErrorMessage = "Please Enter Your Last Name")]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Email")]
