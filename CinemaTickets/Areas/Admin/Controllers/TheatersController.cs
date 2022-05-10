@@ -40,7 +40,6 @@ namespace CinemaTickets.Areas.Admin.Controllers
         [Route("Theater-Create")]
         public ViewResult Create()
         {
-         
             dynamic model = new TheaterCreateViewModel();
             return View(model);
         }

@@ -87,6 +87,8 @@ namespace CinemaTickets
             });
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaims>();
 
+
+            //Email Services
             services.Configure<STMPConfigViewModel>(_configuration.GetSection("SMTPConfig"));
           
         }

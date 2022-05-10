@@ -42,7 +42,7 @@ namespace CinemaTickets.Data.Services
                 UserName =model.Email,
                 Email = model.Email,
             };
-            var result= await _userManager.CreateAsync(user, model.Password); ;
+            var result= await _userManager.CreateAsync(user, model.Password); 
            
             if (result.Succeeded)
             {
@@ -82,7 +82,7 @@ namespace CinemaTickets.Data.Services
         public async Task<IdentityResult> ChangeUserPassword(ChangePasswordViewModel model)
         {
             var userId = _userServise.GetUserId();
-            var user =await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
             return await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
              
         }

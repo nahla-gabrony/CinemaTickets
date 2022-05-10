@@ -47,7 +47,7 @@ namespace CinemaTickets.Data.Services
         }
         public async Task<IdentityResult> Delete(ApplicationUser user)
         {
-            return await _userManager.DeleteAsync(user); ;
+            return await _userManager.DeleteAsync(user); 
         }
         public async Task<UserViewModel> CheckExistingUser(string id)
         {
