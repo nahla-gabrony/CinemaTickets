@@ -150,7 +150,7 @@ namespace CinemaTickets.Data.Services
                 }
             }
         }
-
+        /* -------------------------------------   User/Claim Part  -----------------------------------*/
         public async Task<UserClaimsViewModel> GetClaimsofUser(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);

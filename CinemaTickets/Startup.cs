@@ -102,7 +102,7 @@ namespace CinemaTickets
             }
             else
             {
-                app.UseStatusCodePagesWithRedirects("/Error/{0}");
+                app.UseStatusCodePagesWithRedirects("Home/Error");
             }
             app.UseStaticFiles();
 

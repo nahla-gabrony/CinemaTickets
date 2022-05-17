@@ -1,4 +1,5 @@
 ﻿using CinemaTickets.Data.Services;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
 using System.Threading.Tasks;
@@ -54,6 +55,9 @@ namespace CinemaTickets.Controllers
             Model.Crews = await _crewService.GetDataBySearch(search);
             return View(Model);
         }
-
+        public IActionResult Error()
+        {
+            return View();
+        }
     }
 }

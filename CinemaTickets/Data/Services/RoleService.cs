@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CinemaTickets.Data.Services
 {
-    public class RoleService :IRoleService
+    public class RoleService : IRoleService
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
