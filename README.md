@@ -35,8 +35,6 @@
 
 <img width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Main_Page.png" />
 
-<details>
-  <summary>More Screenshots</summary>
   <h3>Sign-In/Sign-Up Page</h3>
   <img width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Sign_In.png" />
   <img width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Sign_Up.png" />
@@ -91,7 +89,6 @@
   <h3>Access Denied/Not Found Pages</h3>
   <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Authorization_Page.png" />
   <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Not_found.png" />
-</details>
 
 
 ## 🛠️ Installation Steps
