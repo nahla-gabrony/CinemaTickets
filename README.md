@@ -48,28 +48,31 @@
   <h3>Crew Details Page</h3>
   <img width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Crew_Details.png" />
   
-  <h3>Therater Page</h3>
+  <h3>Theater Page</h3>
   <img width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Therater.png" />
   
-  <h3>Therater Details Page</h3>
+  <h3>Theater Details Page</h3>
   <img width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Therater_Details.png" />
   
   <h3>Search Page</h3>
   <h4> 
     <p> - Movies: can search by Movie Name / Crew Name / Movie Language /Movie production country </p>
     <p> - Crew: can search by Crew Name / Crew Nationality </p>
-    <p> - Therater: can search by Therater Name </p>
+    <p> - Theater: can search by Theater Name </p>
   </h4>
   <img src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Search.gif" />
   
   <h3>Booking Page</h3>
+  - Show a list of available therater for each movie.
+  - Show the available date and time for each movie in selected theater
+  - Show the available seats to choose from them for each movie in selected theater, date and time
   <img src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/booking_seats.gif" />
   
   <h3>Admin Dashboard Page</h3>
   <img src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Dashboard.png" />
   
-  <h3>Admin Therater/Screen Pages</h3>
-  <p> - Therater/Screen: can Create/Update/Delete/Search </p>
+  <h3>Admin Theater/Screen Pages</h3>
+  <p> - Theater/Screen: can Create/Update/Delete/Search </p>
   <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Theater_Index.png" />
   <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Screen_Index.png" />
   <img  width="500px" src="https://github.com/nahla-gabrony/Screen-Shoots/blob/main/CinemaTickets_ScreenShot/Admin_Theater_Create.png" />
