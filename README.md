@@ -96,7 +96,6 @@
 
 ## 🛠️ Installation Steps
 1.	Clone this repository    
-2.	Open the solution in Microsoft Visual Studio
-3.	Update database with command "Update-Database"
+2.	Open the solution in Microsoft Visual Studio in (Package Manager Console)
 4.	Run the project
 5.	Users Email/Password in (users-password) text file
